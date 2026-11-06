@@ -1,0 +1,30 @@
+# Hemmeligheter
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p8
+*.p12
+
+# Claude Code (personlige innstillinger)
+.claude/settings.local.json
+
+# .NET
+bin/
+obj/
+*.user
+TestResults/
+
+# Node / Expo
+node_modules/
+.expo/
+dist/
+web-build/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.claude/.state/

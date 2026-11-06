@@ -1,0 +1,92 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Tilbakerulling: eksisterende image-tag (commit-SHA). Tom = bygg og deploy HEAD."
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  REGION: fr-par
+  REGISTRY: rg.fr-par.scw.cloud
+
+jobs:
+  ci:
+    if: github.ref == 'refs/heads/main' && inputs.image_tag == ''
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    name: Deploy til Scaleway
+    needs: ci
+    # Kjører etter grønn CI, eller direkte ved tilbakerulling (ci hoppes over).
+    if: always() && github.ref == 'refs/heads/main' && (needs.ci.result == 'success' || (needs.ci.result == 'skipped' && inputs.image_tag != ''))
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
+      SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
+      SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
+      SCW_DEFAULT_ORGANIZATION_ID: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
+      SCW_DEFAULT_REGION: fr-par
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Velg image-tag
+        id: tag
+        run: echo "tag=${{ inputs.image_tag || github.sha }}" >> "$GITHUB_OUTPUT"
+
+      - name: Image-navn
+        id: image
+        run: echo "ref=${REGISTRY}/${{ secrets.SCW_REGISTRY_NAMESPACE }}/vasko-server:${{ steps.tag.outputs.tag }}" >> "$GITHUB_OUTPUT"
+
+      - name: Logg inn i Scaleway Container Registry
+        run: echo "$SCW_SECRET_KEY" | docker login "$REGISTRY" -u nologin --password-stdin
+
+      - name: Bygg og push image
+        if: inputs.image_tag == ''
+        run: |
+          docker build -t "${{ steps.image.outputs.ref }}" server
+          docker push "${{ steps.image.outputs.ref }}"
+
+      - uses: actions/setup-dotnet@v4
+        if: inputs.image_tag == '' && hashFiles('server/src/Vasko.Server/Migrations/*.cs') != ''
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Kjør EF-migreringer
+        if: inputs.image_tag == '' && hashFiles('server/src/Vasko.Server/Migrations/*.cs') != ''
+        env:
+          CONNECTION_STRING: ${{ secrets.MIGRATION_CONNECTION_STRING }}
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet ef migrations bundle -p server/src/Vasko.Server -o efbundle --self-contained -r linux-x64
+          ./efbundle --connection "$CONNECTION_STRING"
+
+      - name: Installer Scaleway CLI
+        run: curl -fsSL https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
+
+      - name: Oppdater container
+        run: |
+          scw container container update "${{ secrets.SCW_CONTAINER_ID }}" \
+            registry-image="${{ steps.image.outputs.ref }}" redeploy=true region="$REGION"
+          scw container container wait "${{ secrets.SCW_CONTAINER_ID }}" region="$REGION"
+
+      - name: Helsesjekk
+        run: |
+          domain=$(scw container container get "${{ secrets.SCW_CONTAINER_ID }}" region="$REGION" -o json | jq -r .domain_name)
+          for i in $(seq 1 10); do
+            curl -fsS "https://${domain}/health" && exit 0
+            sleep 6
+          done
+          echo "Helsesjekk feilet. Rull tilbake med workflow_dispatch og forrige image_tag." && exit 1

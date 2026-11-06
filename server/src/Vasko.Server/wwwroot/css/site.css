@@ -1,0 +1,61 @@
+/* Vasko design-tokens. Hold i synk med app/src/theme/tokens.ts (se .claude/skills/vasko-design). */
+:root {
+  --vasko-navy: #1F2E4A;
+  --vasko-cognac: #8B5E3C;
+  --vasko-krem: #F6F1E8;
+  --vasko-krem-lys: #FFFDF8;
+  --vasko-tekst: #1F2E4A;
+  --vasko-tekst-dempet: #5C6577;
+  --vasko-linje: #E4DCCD;
+  --vasko-feil: #9B2C2C;
+
+  --vasko-font-overskrift: "Cormorant Garamond", Georgia, serif;
+  --vasko-font-tekst: "Inter", system-ui, sans-serif;
+
+  --vasko-rom-1: 4px;
+  --vasko-rom-2: 8px;
+  --vasko-rom-3: 16px;
+  --vasko-rom-4: 24px;
+  --vasko-rom-5: 40px;
+  --vasko-rom-6: 64px;
+
+  --vasko-radius: 8px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--vasko-krem-lys);
+  color: var(--vasko-tekst);
+  font-family: var(--vasko-font-tekst);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1, h2, h3, .logo {
+  font-family: var(--vasko-font-overskrift);
+  font-weight: 600;
+  color: var(--vasko-navy);
+}
+
+.topp {
+  padding: var(--vasko-rom-4) var(--vasko-rom-5);
+  background: var(--vasko-krem);
+  border-bottom: 1px solid var(--vasko-linje);
+}
+
+.logo {
+  font-size: 28px;
+  text-decoration: none;
+}
+
+.logo span { color: var(--vasko-cognac); }
+
+.innhold {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--vasko-rom-5) var(--vasko-rom-4);
+}
+
+.dempet { color: var(--vasko-tekst-dempet); }
