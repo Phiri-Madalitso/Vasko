@@ -317,6 +317,115 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
   .stepper{gap:14px}
   .round{width:64px;height:64px}
 }
+/* Mobilvisning: kompakt stil slik at hver skjerm scroller minst mulig */
+@media (max-width:600px){
+  header{min-height:0;gap:6px;padding:calc(env(safe-area-inset-top) + 6px) 12px 2px}
+  .back{min-height:44px;gap:6px;padding-right:8px;font-size:16px}
+  .step{font-size:14px}
+  main{padding:6px 16px 18px}
+  footer{padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+  .btn{min-height:54px;padding:10px 18px;border-radius:14px;font-size:17px}
+  .hint{font-size:14px;margin-bottom:6px}
+  .title{font-size:31px;line-height:1.08;margin-bottom:4px}
+  .lead{font-size:16px;margin-bottom:12px}
+  .body{font-size:16px}
+  .small{font-size:14px}
+  .label{font-size:15px}
+  .gap20{gap:12px}
+  .stack{gap:10px}
+  .card{padding:16px;border-radius:18px}
+  .divider{margin:10px 0}
+  .quiet{font-size:13px;gap:8px}
+  .quiet svg{flex:none;width:20px;height:20px}
+  .chip{min-height:50px;padding:6px 4px;border-radius:12px;font-size:16px}
+  .chip .sub,.chip .after{font-size:12.5px}
+  .row3 .chip{padding:6px 2px;font-size:14.5px;letter-spacing:-.1px}
+  .hm{display:none}
+  .notebtn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:6px 8px 6px 16px;text-align:left}
+  .row2,.row3,.row4{gap:8px}
+  .row3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .row4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .badge2{top:-10px;padding:1px 7px;font-size:11px}
+  .radio,.cbox{width:28px;height:28px}
+  .input{min-height:48px;font-size:17px}
+  .area{min-height:76px;padding:10px 12px;font-size:16px}
+
+  /* Valgkort */
+  .chead{gap:12px;padding:12px 14px}
+  .chead .icon{width:44px;height:44px;border-radius:12px}
+  .chead .icon svg{transform:scale(.6)}
+  .ctitle2{font-size:22px}
+  .cbody{gap:8px;padding:0 14px 14px}
+  .mrow{gap:10px;padding:8px 10px 8px 12px;border-radius:12px}
+  .mrow .small{font-size:13px}
+  .mstep{gap:6px}
+  .mstep .round{width:40px;height:40px}
+  .mstep .round svg{width:18px;height:18px}
+  .mnum{min-width:28px;font-size:28px}
+  .addon{min-height:44px;gap:12px}
+  .warn{padding:8px 12px;font-size:14px}
+  .deg{padding:8px 12px}
+
+  /* Henting og levering */
+  .leg{gap:10px}
+  .legn{width:28px;height:28px;margin-top:1px;font-size:15px}
+  .legt{font-size:22px}
+  .picked{display:flex;align-items:center;gap:10px;background:var(--cream);border-radius:12px;padding:6px 6px 6px 12px}
+  .picked .val{flex:1;font-weight:600;font-size:16px}
+  .edit{min-height:44px;padding:0 8px;color:var(--cognac);font-weight:600;font-size:15px;text-decoration:underline;text-underline-offset:3px}
+  .prow{min-height:0}
+  .switch{width:54px;height:32px}
+  .switch::after{width:26px;height:26px}
+  .switch.on::after{transform:translateX(22px)}
+  .save{margin-left:6px;padding:1px 8px;font-size:12px}
+
+  /* Plassering */
+  .opt{min-height:56px;gap:12px;padding:8px 14px;border-radius:14px;font-size:16px}
+  .tile .idot{width:40px;height:40px;border-radius:10px}
+  .tile .sub{font-size:13px}
+
+  /* Oppsummering */
+  .receipt{padding:16px 18px}
+  .rrow{gap:12px;padding:3px 0}
+  .rl,.rv{font-size:15px}
+  .tl{font-size:17px}
+  .tv{font-size:28px}
+  .rtrust{gap:10px;margin-top:10px;padding:10px 12px}
+
+  /* Sporing */
+  .note{gap:12px;margin-bottom:12px;padding:12px;border-radius:16px}
+  .nmark{width:40px;height:40px;border-radius:10px;font-size:24px}
+  .nmeta{font-size:12px}
+  .ntext{font-size:16px}
+  .tlrow{min-height:46px;gap:12px}
+  .tlcol{width:24px}
+  .tldot{width:24px;height:24px}
+  .tltext{font-size:16px}
+
+  /* Mottak */
+  .washer{width:min(240px,62vw)}
+
+  /* Start */
+  .welcome{padding:4px 0}
+  .welcome .hero{width:auto;max-width:100%;height:min(30vh,210px);aspect-ratio:16/9}
+  .rule{margin:8px 0}
+  .slogan{font-size:25px}
+  .tagline{margin:6px 0 10px;font-size:12px;letter-spacing:3px}
+  .wtext{margin-bottom:12px;font-size:16px}
+  .pills{gap:4px 14px;margin:0 0 16px}
+  .pill{font-size:14px}
+
+  /* Levert */
+  .saved{gap:14px;padding:14px 16px;border-radius:18px}
+  .savedn{font-size:36px}
+  .vidwrap{gap:6px;margin-top:0}
+  .vid{border-radius:16px}
+  .mailbox{gap:8px;padding:16px;border-radius:18px}
+  .mail{min-height:52px;padding:10px 14px;font-size:16px}
+}
+@media (max-width:359px){
+  .row4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
@@ -400,7 +509,7 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
     return { hverdag:false, signatur:false, store:false, esker:1, skjorter:5, rens:1, jakker:1, dyner:1, tepper:0, care:'anvisning',
       prefs:{ vaskemiddel:'parfymefritt', temperatur:'normal', grader:'', stivelse:'uten' }, instrukser:'',
       adresse:'', pickupDate:null, pickupWin:null, delivDate:null, delivWin:null, repeat:false, place:'dor',
-      lufttork:false, flekk:{ hverdag:false, signatur:false, store:false } };
+      lufttork:false, flekk:{ hverdag:false, signatur:false, store:false }, editPick:false, editDel:false, showNote:false };
   }
 
   /* ---------- Tilstand ---------- */
@@ -479,6 +588,7 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
   var PLACE_ICONS = { dor:I_DOOR, bod:I_GARAGE, annet:I_PIN };
   var HERO = '<img class="hero" src="'+ESKE_IMG+'" alt="Vasko-eske med rent, brettet tøy sortert i rom, og et kort til familien">';
 
+  function isMobile(){ return window.matchMedia('(max-width:600px)').matches; }
   function logo(size){ return '<span class="logo" data-logo style="font-size:'+size+'px">Vask<span class="o">o</span></span>'; }
   function btn(label, action, variant, disabled, value, id){
     return '<button class="btn '+(variant==='s'?'btn-s':'btn-p')+'"'+(id?' id="'+id+'"':'')+' data-a="'+action+'"'+(value!=null?' data-v="'+value+'"':'')+(disabled?' disabled':'')+'>'+label+'</button>';
@@ -614,7 +724,7 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
     return '<p class="label">Tillegg</p>'
       + addon('lufttork', o.lufttork, 'Tørk uten tørketrommel', 'Lufttørkes på stativ. Skånsomt, men tar lengre tid.', '')
       + (o.lufttork ? '<p class="warn">Levering tidligst 4 dager etter henting.</p>' : '')
-      + (sv.length ? '<div><p class="body" style="font-weight:600;margin-top:6px">Krevende flekkfjerning</p><p class="small">Ekstra behandling av vanskelige flekker. Kryss av der du trenger det.</p></div>'
+      + (sv.length ? '<div><p class="body" style="font-weight:600;margin-top:6px">Krevende flekkfjerning</p><p class="small">Ekstra behandling av vanskelige flekker.<span class="hm"> Kryss av der du trenger det.</span></p></div>'
         + sv.map(function(x){ return addon('flekk:'+x[0], o.flekk[x[0]], x[1], '', S.showPrices ? '+'+kr(num(S.prices.flekk)) : ''); }).join('') : '');
   }
   function addon(v, on, t, sub, price){
@@ -633,7 +743,7 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
     switch (S.screen) {
       case 0:
         return '<div class="welcome">' + HERO
-          + '<div style="margin-top:22px">'+logo(window.innerWidth>=700?84:68)+'</div><div class="rule"></div>'
+          + '<div style="margin-top:22px">'+logo(isMobile() ? 46 : window.innerWidth>=700 ? 84 : 68)+'</div><div class="rule"></div>'
           + '<p class="slogan">Tid til det som betyr noe</p><p class="tagline">VASK · RENS · LEVERT</p>'
           + '<p class="wtext">Vi henter skittentøyet på døren og leverer det rent, brettet og sortert per person.</p>'
           + '<div class="pills"><span class="pill">'+check(18,C.cognac,3)+'Henting og levering inkludert</span><span class="pill">'+check(18,C.cognac,3)+'Faste rutedager i nabolaget</span></div>'
@@ -658,9 +768,11 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
                   + (g.key==='temperatur' && o.prefs.temperatur==='egen'
                     ? '<div class="deg"><label class="txt label" for="grader">Antall grader</label><input id="grader" class="input" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="60" data-o="grader" value="'+esc(o.prefs.grader)+'"><span class="body">°C</span></div>' : '');
               }).join('') + '<div class="divider" style="margin:6px 0 0"></div>' + addonsHtml())
-          + '<div class="card" style="display:flex;flex-direction:column;gap:10px"><label class="label" for="instrukser">Andre instrukser til vaskeriet</label>'
-          + '<p class="small" style="margin-top:-4px">Valgfritt. For eksempel en flekk, et plagg som må vaskes for seg, eller noe annet vi bør vite.</p>'
-          + '<textarea id="instrukser" class="input wide area" data-o="instrukser" maxlength="300" rows="3" placeholder="Skriv her …">'+esc(o.instrukser)+'</textarea></div>'
+          + (isMobile() && !o.showNote && !o.instrukser
+            ? '<button class="card notebtn" data-a="shownote"><span class="label">Andre instrukser til vaskeriet</span><span class="edit">Legg til</span></button>'
+            : '<div class="card" style="display:flex;flex-direction:column;gap:10px"><label class="label" for="instrukser">Andre instrukser til vaskeriet</label>'
+              + '<p class="small" style="margin-top:-4px">Valgfritt. For eksempel en flekk, et plagg som må vaskes for seg, eller noe annet vi bør vite.</p>'
+              + '<textarea id="instrukser" class="input wide area" data-o="instrukser" maxlength="300" rows="3" placeholder="Skriv her …">'+esc(o.instrukser)+'</textarea></div>')
           + '<p class="quiet">'+SHIELD+'<span>Tøyet ditt vaskes alltid for seg, aldri sammen med andres.</span></p></div>';
 
       case 3: {
@@ -673,16 +785,22 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
             return chip(w[0], field, w[0], cur===w[0], w[1], n ? '<span class="disc">'+(n===1 ? '1 nabo' : n+' naboer')+' · −'+disc+' kr</span>' : ''); }).join('') + '</div>'; };
         var leg = function(n, t, sub){ return '<div class="leg"><span class="legn">'+n+'</span><div><p class="legt">'+t+'</p><p class="small">'+sub+'</p></div></div>'; };
         var picked = o.pickupDate && o.pickupWin, delDates = picked ? routeDates(o.pickupDate, lt.days, 4) : [];
+        var mob = isMobile(), pickDone = mob && picked && !o.editPick, delDone = mob && o.delivDate && o.delivWin && !o.editDel;
+        var summary = function(iso, win, action, aria){ var n = neighbours(iso, win);
+            return '<div class="picked"><span class="val">'+cap(DAY_NAMES[parseIso(iso).getDay()])+' '+dateShort(iso)+' · <span style="white-space:nowrap">kl. '+win+'</span>'+(n ? '<br><span class="small early">Naborabatt −'+disc+' kr</span>' : '')+'</span>'
+              + '<button class="edit" data-a="'+action+'" aria-label="'+aria+'">Endre</button></div>'; };
         return '<div class="gap20"><div>'+title('Når henter og leverer vi?')
           + '<p class="lead">Vi kjører fast'+(S.area ? ' i '+esc(S.area) : ' i nabolaget ditt')+' på '+dayNames+'. Du trenger ikke være hjemme.</p></div>'
           + '<div class="card stack" style="gap:10px"><label class="label" for="adresse">Adressen din</label>'
           + '<input id="adresse" class="input wide" data-o="adresse" autocomplete="street-address" maxlength="120" placeholder="For eksempel Børrevågsveien 12" value="'+esc(o.adresse)+'"></div>'
-          + '<div class="card stack" style="gap:12px">' + leg('1', 'Henting', 'Velg en av de neste rutedagene.')
-          + dateRow('pdate', routeDates(null, 1, 4), o.pickupDate) + (o.pickupDate ? winRow('pwin', o.pickupDate, o.pickupWin) : '') + '</div>'
-          + '<div class="card stack" style="gap:12px'+(picked ? '' : ';opacity:.6')+'">' + leg('2', 'Levering', picked
+          + '<div class="card stack" style="gap:12px">' + leg('1', 'Henting', pickDone ? '' : 'Velg en av de neste rutedagene.')
+          + (pickDone ? summary(o.pickupDate, o.pickupWin, 'editpick', 'Endre henting')
+             : dateRow('pdate', routeDates(null, 1, 4), o.pickupDate) + (o.pickupDate ? winRow('pwin', o.pickupDate, o.pickupWin) : '')) + '</div>'
+          + '<div class="card stack" style="gap:12px'+(picked ? '' : ';opacity:.6')+'">' + leg('2', 'Levering', delDone ? '' : picked
               ? 'Tidligste levering er <b class="early">'+dateLong(delDates[0]).replace(/^./, function(c){ return c.toLowerCase(); })+'</b>. '+cap(joinNo(lt.why))+' trenger minst '+lt.days+' dager.'
               : 'Tidligst '+lt.days+' dager etter henting ('+joinNo(lt.why)+').')
-          + (picked ? dateRow('ddate', delDates, o.delivDate, true) + (o.delivDate ? winRow('dwin', o.delivDate, o.delivWin) : '') : '<p class="small">Velg tid for henting først.</p>') + '</div>'
+          + (delDone ? summary(o.delivDate, o.delivWin, 'editdel', 'Endre levering')
+             : picked ? dateRow('ddate', delDates, o.delivDate, true) + (o.delivDate ? winRow('dwin', o.delivDate, o.delivWin) : '') : '<p class="small">Velg tid for henting først.</p>') + '</div>'
           + '<div class="card repeat'+(o.repeat?' on':'')+'"><div class="prow"><div style="flex:1"><p class="body" style="font-weight:600">Gjenta neste uke <span class="save">−'+kr(num(S.prices.gjenta))+' neste uke</span></p>'
           + '<p class="small">'+(o.repeat ? 'Neste ukes bestilling blir '+kr(num(S.prices.gjenta))+' billigere. Samme dager og tider.' : 'Samme dager og tider uken etter. Da blir neste ukes bestilling '+kr(num(S.prices.gjenta))+' billigere.')+'</p></div>'
           + '<button class="switch'+(o.repeat?' on':'')+'" role="switch" aria-checked="'+o.repeat+'" aria-label="Gjenta neste uke, '+kr(num(S.prices.gjenta))+' rabatt på neste ukes bestilling" data-a="repeat"></button></div></div>'
@@ -786,7 +904,7 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
     var canBack = (S.screen>=1 && S.screen<=5);
     var st = steps(), idx = st.indexOf(S.screen);
     return '<header><div class="hside">'+(canBack?'<button class="back" data-a="back">'+CHEVRON+'<span>Tilbake</span></button>':'')+'</div>'
-      + logo(38) + '<div class="hside r">'+(idx>=0?'<span class="step">Steg '+(idx+1)+' av '+st.length+'</span>':'')+'</div></header>';
+      + logo(isMobile() ? 28 : 38) + '<div class="hside r">'+(idx>=0?'<span class="step">Steg '+(idx+1)+' av '+st.length+'</span>':'')+'</div></header>';
   }
   function footerHtml(){
     var f = footerCfg(); if (!f) return '';
@@ -1015,9 +1133,12 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
       case 'pref': { var kv = v.split(':'); o.prefs[kv[0]] = kv[1]; break; }
       case 'care': o.care = v; break;
       case 'pdate': o.pickupDate = v; break;
-      case 'pwin': o.pickupWin = v; break;
+      case 'pwin': o.pickupWin = v; o.editPick = false; break;
+      case 'editpick': o.editPick = true; break;
+      case 'shownote': o.showNote = true; break;
       case 'ddate': o.delivDate = v; break;
-      case 'dwin': o.delivWin = v; break;
+      case 'dwin': o.delivWin = v; o.editDel = false; break;
+      case 'editdel': o.editDel = true; break;
       case 'repeat': o.repeat = !o.repeat; break;
       case 'addon':
         if (v==='lufttork') o.lufttork = !o.lufttork;
@@ -1138,7 +1259,11 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
   // Lagre økta hvis appen lukkes midt i
   window.addEventListener('pagehide', finishSession);
 
-  window.addEventListener('resize', function(){ if (S.screen===0 || S.screen===11) render(false); });
+  var wasMobile = isMobile();
+  window.addEventListener('resize', function(){
+    var m = isMobile();
+    if (m !== wasMobile || S.screen===0) { wasMobile = m; render(false); }
+  });
 
   // Lasteskjerm til skriftene er klare (maks 3 sekunder)
   var shown = false;
