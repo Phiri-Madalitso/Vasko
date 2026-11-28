@@ -231,7 +231,9 @@ footer{border-top:1px solid var(--line);background:var(--cream);padding:16px 24p
 .badge2{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--cognac);color:#fff;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:600;white-space:nowrap;line-height:1.5}
 .row4.badged{padding-top:8px}
 .early{color:var(--cognac);font-weight:600}
-.chip .after .disc{color:var(--cognac);font-weight:600}.chip.on .after .disc{color:var(--cream)}
+.chip .after .disc{display:block;color:var(--cognac);font-weight:600}
+.legend{display:flex;align-items:flex-start;gap:8px;margin-top:2px}.legend .ppl{flex:none;margin-top:2px}
+.chip .after .ppl{vertical-align:-1px;margin-right:4px}.chip.on .after .disc{color:var(--cream)}
 .leg{display:flex;gap:14px;align-items:flex-start}
 .legn{width:36px;height:36px;border-radius:50%;background:var(--navy);color:var(--cream);display:grid;place-items:center;font-weight:600;font-size:18px;flex:none;margin-top:3px}
 .legt{font-family:var(--serif);font-weight:600;font-size:28px;line-height:1.15}
@@ -341,6 +343,8 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
   .chip .sub,.chip .after{font-size:12.5px}
   .row3 .chip{padding:6px 2px;font-size:14.5px;letter-spacing:-.1px}
   .hm{display:none}
+  .row4 .chip .after{white-space:nowrap}
+  .row4 .chip .after .ppl{display:none}
   .notebtn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:6px 8px 6px 16px;text-align:left}
   .row2,.row3,.row4{gap:8px}
   .row3{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -583,6 +587,8 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
   var I_DOOR = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="'+C.navy+'" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4h11v17"/><path d="M3 21h18"/><circle cx="13" cy="12.5" r="1" fill="'+C.cognac+'" stroke="none"/></svg>';
   var I_GARAGE = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="'+C.navy+'" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8"/><path d="M7 16h10" stroke="'+C.cognac+'"/></svg>';
   var I_PIN = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="'+C.navy+'" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-6.2-6-11a6 6 0 0 1 12 0c0 4.8-6 11-6 11z"/><circle cx="12" cy="10" r="2.2" stroke="'+C.cognac+'"/></svg>';
+  var PEOPLE = '<svg class="ppl" width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><circle cx="7" cy="4.5" r="3.2" fill="'+C.cognac+'"/><path d="M1 15c0-3.6 2.7-6 6-6s6 2.4 6 6z" fill="'+C.cognac+'"/><circle cx="15.5" cy="5.5" r="2.7" fill="'+C.cognacL+'"/><path d="M11.5 15c.2-3 2-5 4-5s5 1.8 5 5z" fill="'+C.cognacL+'"/></svg>';
+  var PEOPLE_S = '<svg class="ppl" width="15" height="11" viewBox="0 0 22 16" aria-hidden="true"><circle cx="7" cy="4.5" r="3.2" fill="currentColor"/><path d="M1 15c0-3.6 2.7-6 6-6s6 2.4 6 6z" fill="currentColor"/><circle cx="15.5" cy="5.5" r="2.7" fill="currentColor" opacity=".6"/><path d="M11.5 15c.2-3 2-5 4-5s5 1.8 5 5z" fill="currentColor" opacity=".6"/></svg>';
   var MAIL = 'vasko.teamkrs@gmail.com';
   var MAILICON = '<svg width="28" height="22" viewBox="0 0 28 22" fill="none" stroke="'+C.cream+'" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="1.5" width="25" height="19" rx="3"/><path d="M2.5 3l11.5 9 11.5-9" stroke="'+C.cognacL+'"/></svg>';
   var PLACE_ICONS = { dor:I_DOOR, bod:I_GARAGE, annet:I_PIN };
@@ -628,7 +634,7 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
     if (o.hverdag) a.push([2,'hverdagsvask']);
     if (o.signatur) a.push([3,'skjorter og rens']);
     if (o.store) a.push([7,'jakker, dyner og tepper']);
-    if (o.lufttork) a.push([4,'tørk uten tørketrommel']);
+    if (o.lufttork && o.hverdag) a.push([4,'tørk uten tørketrommel']);
     var max = a.reduce(function(m, x){ return Math.max(m, x[0]); }, 2);
     return { days:max, why:a.filter(function(x){ return x[0]===max; }).map(function(x){ return x[1]; }) };
   }
@@ -646,7 +652,7 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
   }
   function extrasText(){
     var a = [], f = flekkList();
-    if (S.order.lufttork) a.push('tørk uten tørketrommel');
+    if (S.order.lufttork && S.order.hverdag) a.push('tørk uten tørketrommel (' + (S.order.lufttork==='noen' ? 'noen plagg, se beskjed' : 'hele hverdagsvasken') + ')');
     if (f.length) a.push('krevende flekkfjerning (' + joinNo(f.map(function(x){ return x[1].toLowerCase(); })) + ')');
     return cap(a.join(', '));
   }
@@ -722,8 +728,10 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
   function addonsHtml(){
     var o = S.order, sv = SERV.filter(function(x){ return o[x[0]]; });
     return '<p class="label">Tillegg</p>'
-      + addon('lufttork', o.lufttork, 'Tørk uten tørketrommel', 'Lufttørkes på stativ. Skånsomt, men tar lengre tid.', '')
-      + (o.lufttork ? '<p class="warn">Levering tidligst 4 dager etter henting.</p>' : '')
+      + (o.hverdag ? addon('lufttork', !!o.lufttork, 'Tørk uten tørketrommel', 'Gjelder hverdagsvasken. Tøyet henges til tørk på stativ.', '')
+        + (o.lufttork ? '<div class="row2">' + chip('Hele hverdagsvasken', 'lufttork', 'alt', o.lufttork==='alt') + chip('Bare noen plagg', 'lufttork', 'noen', o.lufttork==='noen') + '</div>'
+          + (o.lufttork==='noen' ? '<p class="small">Skriv hvilke plagg i «Andre instrukser til vaskeriet» under.</p>' : '')
+          + '<p class="warn">Levering tidligst 4 dager etter henting.</p>' : '') : '')
       + (sv.length ? '<div><p class="body" style="font-weight:600;margin-top:6px">Krevende flekkfjerning</p><p class="small">Ekstra behandling av vanskelige flekker.<span class="hm"> Kryss av der du trenger det.</span></p></div>'
         + sv.map(function(x){ return addon('flekk:'+x[0], o.flekk[x[0]], x[1], '', S.showPrices ? '+'+kr(num(S.prices.flekk)) : ''); }).join('') : '');
   }
@@ -753,8 +761,8 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
         return '<div class="gap20"><div>'+title('Hva skal vi vaske?')+'<p class="lead">Velg så mange du vil.</p></div>'
           + choice(o.hverdag, 'toggle', 'hverdag', 'check', FOLDED, 'Hverdagsvask', 'Klær, sengetøy og håndklær',
               mini('esker', o.esker, 1, 10, 'esker', o.esker===1?'1 eske':o.esker+' esker', '1 eske er omtrent 1 full skittentøyskurv'))
-          + choice(o.signatur, 'toggle', 'signatur', 'check', HANGER, 'Skjorter og rens', 'Strøket på henger, levert i plaggpose',
-              mini('skjorter', o.skjorter, 0, 30, 'skjorter', 'Skjorter') + mini('rens', o.rens, 0, 20, 'renseplagg', 'Til rens', 'Dress, kjole eller frakk'))
+          + choice(o.signatur, 'toggle', 'signatur', 'check', HANGER, 'Skjorter og rens', 'Skjorter vaskes og strykes. Rens er for dress, kjole og frakk.',
+              mini('skjorter', o.skjorter, 0, 30, 'skjorter', 'Skjorter', 'Vask og stryk, levert på henger') + mini('rens', o.rens, 0, 20, 'renseplagg', 'Til rens', 'Dress, kjole eller frakk i plaggpose'))
           + choice(o.store, 'toggle', 'store', 'check', DUVET, 'Jakker, dyner og tepper', 'Store og ømfintlige ting',
               mini('jakker', o.jakker, 0, 10, 'jakker', 'Jakker', 'Dunjakke eller vinterjakke') + mini('dyner', o.dyner, 0, 10, 'dyner', 'Dyner') + mini('tepper', o.tepper, 0, 10, 'tepper', 'Tepper', 'Pledd og sengetepper'))
           + '</div>';
@@ -779,15 +787,15 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
         syncDates();
         var lt = leadTime(), disc = num(S.prices.nabo);
         var dayNames = joinNo(routeDays().map(function(k){ return DAYS.filter(function(d){ return d[0]===k; })[0][2] + 'er'; }));
-        var dateRow = function(field, list, cur, markFirst){ return '<p class="label">Hvilken dag?</p><div class="row4'+(markFirst?' badged':'')+'">' + list.map(function(iso, i){ var n = dayNeighbours(iso);
-            return chip(dateShort(iso), field, iso, cur===iso, cap(DAY_NAMES[parseIso(iso).getDay()]), n ? (n===1 ? '1 nabo' : n+' naboer') : '', markFirst && i===0 ? 'Tidligst' : ''); }).join('') + '</div>'; };
-        var winRow = function(field, iso, cur){ return '<p class="label">Når på dagen?</p><div class="row3">' + WINDOWS.map(function(w){ var n = neighbours(iso, w[0]);
-            return chip(w[0], field, w[0], cur===w[0], w[1], n ? '<span class="disc">'+(n===1 ? '1 nabo' : n+' naboer')+' · −'+disc+' kr</span>' : ''); }).join('') + '</div>'; };
+        var dateRow = function(field, list, cur, markFirst){ return '<div><p class="label">Hvilken dag?</p><p class="small legend">'+PEOPLE+'Tallet under datoen er hvor mange naboer som allerede har bestilt den dagen.</p></div><div class="row4'+(markFirst?' badged':'')+'">' + list.map(function(iso, i){ var n = dayNeighbours(iso);
+            return chip(dateShort(iso), field, iso, cur===iso, cap(DAY_NAMES[parseIso(iso).getDay()]), n ? PEOPLE_S+(n===1 ? '1 nabo' : n+' naboer') : '', markFirst && i===0 ? 'Tidligst' : ''); }).join('') + '</div>'; };
+        var winRow = function(field, iso, cur){ return '<div><p class="label">Når på dagen?</p><p class="small legend">Velg en tid der en nabo allerede får besøk, så sparer du '+kr(disc)+'.</p></div><div class="row3">' + WINDOWS.map(function(w){ var n = neighbours(iso, w[0]);
+            return chip(w[0], field, w[0], cur===w[0], w[1], n ? PEOPLE_S+(n===1 ? '1 nabo' : n+' naboer')+'<span class="disc">Spar '+kr(disc)+'</span>' : ''); }).join('') + '</div>'; };
         var leg = function(n, t, sub){ return '<div class="leg"><span class="legn">'+n+'</span><div><p class="legt">'+t+'</p><p class="small">'+sub+'</p></div></div>'; };
         var picked = o.pickupDate && o.pickupWin, delDates = picked ? routeDates(o.pickupDate, lt.days, 4) : [];
         var mob = isMobile(), pickDone = mob && picked && !o.editPick, delDone = mob && o.delivDate && o.delivWin && !o.editDel;
         var summary = function(iso, win, action, aria){ var n = neighbours(iso, win);
-            return '<div class="picked"><span class="val">'+cap(DAY_NAMES[parseIso(iso).getDay()])+' '+dateShort(iso)+' · <span style="white-space:nowrap">kl. '+win+'</span>'+(n ? '<br><span class="small early">Naborabatt −'+disc+' kr</span>' : '')+'</span>'
+            return '<div class="picked"><span class="val">'+cap(DAY_NAMES[parseIso(iso).getDay()])+' '+dateShort(iso)+' · <span style="white-space:nowrap">kl. '+win+'</span>'+(n ? '<br><span class="small early">Naborabatt: du sparer '+kr(disc)+'</span>' : '')+'</span>'
               + '<button class="edit" data-a="'+action+'" aria-label="'+aria+'">Endre</button></div>'; };
         return '<div class="gap20"><div>'+title('Når henter og leverer vi?')
           + '<p class="lead">Vi kjører fast'+(S.area ? ' i '+esc(S.area) : ' i nabolaget ditt')+' på '+dayNames+'. Du trenger ikke være hjemme.</p></div>'
@@ -801,10 +809,10 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
               : 'Tidligst '+lt.days+' dager etter henting ('+joinNo(lt.why)+').')
           + (delDone ? summary(o.delivDate, o.delivWin, 'editdel', 'Endre levering')
              : picked ? dateRow('ddate', delDates, o.delivDate, true) + (o.delivDate ? winRow('dwin', o.delivDate, o.delivWin) : '') : '<p class="small">Velg tid for henting først.</p>') + '</div>'
-          + '<div class="card repeat'+(o.repeat?' on':'')+'"><div class="prow"><div style="flex:1"><p class="body" style="font-weight:600">Gjenta neste uke <span class="save">−'+kr(num(S.prices.gjenta))+' neste uke</span></p>'
+          + '<div class="card repeat'+(o.repeat?' on':'')+'"><div class="prow"><div style="flex:1"><p class="body" style="font-weight:600">Gjenta neste uke <span class="save">Spar '+kr(num(S.prices.gjenta))+' neste uke</span></p>'
           + '<p class="small">'+(o.repeat ? 'Neste ukes bestilling blir '+kr(num(S.prices.gjenta))+' billigere. Samme dager og tider.' : 'Samme dager og tider uken etter. Da blir neste ukes bestilling '+kr(num(S.prices.gjenta))+' billigere.')+'</p></div>'
           + '<button class="switch'+(o.repeat?' on':'')+'" role="switch" aria-checked="'+o.repeat+'" aria-label="Gjenta neste uke, '+kr(num(S.prices.gjenta))+' rabatt på neste ukes bestilling" data-a="repeat"></button></div></div>'
-          + '<p class="quiet"><span>Naborabatt: −'+disc+' kr når du velger samme dag og tid som en nabo. Antall naboer er eksempler i prototypen.</span></p></div>';
+          + '<p class="quiet"><span>Naborabatt: du sparer '+kr(disc)+' når du velger samme dag og tid som en nabo. Antall naboer er eksempler i prototypen.</span></p></div>';
       }
 
       case 4:
@@ -991,7 +999,7 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
       henting_dato:o.pickupDate||'', henting_dag:o.pickupDate?DOW[parseIso(o.pickupDate).getDay()]:'', henting_tid:o.pickupWin||'',
       levering_dato:o.delivDate||'', levering_dag:o.delivDate?DOW[parseIso(o.delivDate).getDay()]:'', levering_tid:o.delivWin||'',
       dager_til_levering:o.pickupDate&&o.delivDate?daysBetween(o.pickupDate,o.delivDate):'', min_dager:leadTime().days,
-      gjenta_neste_uke:yn(o.repeat), naborabatt_kr:naboRabatt()||'', gjenta_rabatt_kr:o.repeat?num(S.prices.gjenta):'', lufttork:yn(o.lufttork), flekkfjerning:flekkList().map(function(x){ return x[0]; }).join(' '),
+      gjenta_neste_uke:yn(o.repeat), naborabatt_kr:naboRabatt()||'', gjenta_rabatt_kr:o.repeat?num(S.prices.gjenta):'', lufttork:o.hverdag&&o.lufttork ? o.lufttork : 'nei', flekkfjerning:flekkList().map(function(x){ return x[0]; }).join(' '),
       plassering:place?place.label:'',
       priser_vist:yn(S.showPrices), total_kr:S.showPrices?total():'',
       stemme:s.vote||'', usikker_pa:(s.reasons||[]).join(', '), hvor_ofte:s.often||'', betalingsvilje:s.wtp||'',
@@ -1140,8 +1148,9 @@ select.input{-webkit-appearance:none;appearance:none;background:#fff url("data:i
       case 'dwin': o.delivWin = v; o.editDel = false; break;
       case 'editdel': o.editDel = true; break;
       case 'repeat': o.repeat = !o.repeat; break;
+      case 'lufttork': o.lufttork = v; if (v==='noen') o.showNote = true; break;
       case 'addon':
-        if (v==='lufttork') o.lufttork = !o.lufttork;
+        if (v==='lufttork') o.lufttork = o.lufttork ? false : 'alt';
         else { var fk = v.split(':')[1]; o.flekk[fk] = !o.flekk[fk]; }
         break;
       case 'route': {
